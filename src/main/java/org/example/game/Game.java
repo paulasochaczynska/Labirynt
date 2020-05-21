@@ -20,6 +20,7 @@ public class Game extends JFrame {
     public static final int FIELD_SIZE = GAME_WIDTH / FIELD_COUNT;
 
     private GraphicPanel panel = new GraphicPanel();
+    private Keyboard keyboard = new Keyboard();
     private List<GameObject> objects = new ArrayList<>();
 
     public Game() throws HeadlessException {
@@ -34,6 +35,7 @@ public class Game extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Labirynt");
         add(panel);
+        addKeyListener(keyboard);
     }
 
     public void setUpComponents(){
