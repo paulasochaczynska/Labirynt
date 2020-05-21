@@ -7,6 +7,8 @@ import org.example.model.Wall;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +18,11 @@ public class Game extends JFrame {
     private static final int GAME_HEIGHT = 800 + MENU_BAR_HEIGHT;
     private static final int RELATIVE_GAME_HEIGHT = GAME_HEIGHT - MENU_BAR_HEIGHT;
 
-    private static final int FIELD_COUNT = 8;
+    public static final int FIELD_COUNT = 8;
     public static final int FIELD_SIZE = GAME_WIDTH / FIELD_COUNT;
 
     private GraphicPanel panel = new GraphicPanel();
-    private Keyboard keyboard = new Keyboard();
+    private Keyboard keyboard;
     private List<GameObject> objects = new ArrayList<>();
 
     public Game() throws HeadlessException {
@@ -35,7 +37,6 @@ public class Game extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Labirynt");
         add(panel);
-        addKeyListener(keyboard);
     }
 
     public void setUpComponents(){
@@ -45,10 +46,18 @@ public class Game extends JFrame {
         objects.add(player);
         objects.add(treasure);
         objects.add(wall);
+        keyboard = new Keyboard(player);
+        addKeyListener(keyboard);
     }
 
 
-    class GraphicPanel extends JPanel{
+    class GraphicPanel extends JPanel implements ActionListener {
+        private Timer timer = new Timer(1000/60, this);
+
+        public GraphicPanel() {
+            timer.start();
+        }
+
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -56,6 +65,11 @@ public class Game extends JFrame {
             for(GameObject object : objects){
                 object.draw(g);
             }
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            repaint();
         }
     }
 }
