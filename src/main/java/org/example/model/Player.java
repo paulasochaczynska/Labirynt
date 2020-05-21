@@ -1,6 +1,7 @@
 package org.example.model;
 
 import org.example.game.Game;
+import org.example.game.Mediator;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -8,14 +9,19 @@ import java.awt.event.KeyEvent;
 public class Player extends GameObject {
 
 
-    public Player(int x, int y) {
-        super(x, y, Color.RED);
+    public Player(int x, int y, Mediator mediator) {
+        super(x, y, Color.RED, mediator);
     }
 
     @Override
     public void draw(Graphics g) {
         g.setColor(color);
         g.fillOval(x * width, y * height, width, height);
+    }
+
+    @Override
+    public boolean isSolid() {
+        return true;
     }
 
     public void move(int keyCode) {
@@ -41,6 +47,10 @@ public class Player extends GameObject {
 
         if(newY < 0 || newY > Game.FIELD_COUNT - 1){
             return;
+        }
+
+        if(!mediator.canMoveTo(newX, newY)){
+               return;
         }
 
         x = newX;

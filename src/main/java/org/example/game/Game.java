@@ -40,9 +40,10 @@ public class Game extends JFrame {
     }
 
     public void setUpComponents(){
-        Player player = new Player(1, 0);
-        Treasure treasure = new Treasure(0, 0);
-        Wall wall = new Wall(4, 4);
+        Mediator mediator = new Mediator(objects);
+        Player player = new Player(1, 0, mediator);
+        Treasure treasure = new Treasure(0, 0, mediator);
+        Wall wall = new Wall(4, 4, mediator);
         objects.add(player);
         objects.add(treasure);
         objects.add(wall);
