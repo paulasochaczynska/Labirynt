@@ -11,6 +11,7 @@ public class Player extends GameObject{
 
     @Override
     public void draw(Graphics g) {
-        g.fillRect(x, y, width, height);
+        g.setColor(color);
+        g.fillOval(x * width, y * height, width, height);
     }
 }

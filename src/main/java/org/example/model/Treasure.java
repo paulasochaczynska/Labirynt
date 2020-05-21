@@ -1,4 +1,16 @@
 package org.example.model;
 
-public class Treasure {
+import java.awt.*;
+
+public class Treasure extends GameObject{
+
+    public Treasure(int x, int y) {
+        super(x, y, Color.YELLOW);
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        g.setColor(color);
+        g.fillOval(x * width, y * height, width, height);
+    }
 }

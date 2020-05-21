@@ -1,9 +1,14 @@
 package org.example.game;
 
+import org.example.model.GameObject;
 import org.example.model.Player;
+import org.example.model.Treasure;
+import org.example.model.Wall;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game extends JFrame {
     private static final int MENU_BAR_HEIGHT = 25;
@@ -15,8 +20,14 @@ public class Game extends JFrame {
     public static final int FIELD_SIZE = GAME_WIDTH / FIELD_COUNT;
 
     private GraphicPanel panel = new GraphicPanel();
+    private List<GameObject> objects = new ArrayList<>();
 
     public Game() throws HeadlessException {
+        setUpFrame();
+        setUpComponents();
+    }
+
+    public void setUpFrame(){
         setVisible(true);
         setSize(GAME_WIDTH, GAME_HEIGHT);
         setLocationRelativeTo(null);
@@ -25,14 +36,24 @@ public class Game extends JFrame {
         add(panel);
     }
 
+    public void setUpComponents(){
+        Player player = new Player(1, 0);
+        Treasure treasure = new Treasure(0, 0);
+        Wall wall = new Wall(4, 4);
+        objects.add(player);
+        objects.add(treasure);
+        objects.add(wall);
+    }
+
 
     class GraphicPanel extends JPanel{
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             //   g.drawLine(0, 0, GAME_WIDTH, RELATIVE_GAME_HEIGHT);
-            Player player = new Player(0, 0);
-            player.draw(g);
+            for(GameObject object : objects){
+                object.draw(g);
+            }
         }
     }
 }
