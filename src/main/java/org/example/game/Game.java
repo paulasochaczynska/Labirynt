@@ -24,10 +24,15 @@ public class Game extends JFrame {
     private GraphicPanel panel = new GraphicPanel();
     private Keyboard keyboard;
     private List<GameObject> objects = new ArrayList<>();
+    private Mediator mediator = new Mediator(objects, this);
+    private Player player = new Player(mediator);
+
+    private int levelNumber = 1;
 
     public Game() throws HeadlessException {
         setUpFrame();
         setUpComponents();
+        loadLevel(levelNumber);
     }
 
     public void setUpFrame(){
@@ -40,19 +45,28 @@ public class Game extends JFrame {
     }
 
     public void setUpComponents(){
-        Mediator mediator = new Mediator(objects, this);
-        Player player = new Player(1, 0, mediator);
-        Treasure treasure = new Treasure(0, 0, mediator);
-        Wall wall = new Wall(4, 4, mediator);
-        objects.add(player);
-        objects.add(treasure);
-        objects.add(wall);
         keyboard = new Keyboard(player);
         addKeyListener(keyboard);
     }
 
     public void winGame(){
-        System.exit(0);
+        showWinMessage();
+        levelNumber++;
+        loadLevel(levelNumber);
+    }
+
+    public void showWinMessage(){
+        JOptionPane.showMessageDialog(this, "Ukończyłeś poziom " + levelNumber);
+    }
+
+    public void loadLevel(int levelNumber){
+        objects.clear();
+        WallsGenerator wallsGenerator = new WallsGenerator(mediator);
+        List<Wall> walls = wallsGenerator.createWallsForLever(levelNumber);
+        objects.addAll(walls);
+        Treasure treasure = new Treasure(0, 0, mediator);
+        objects.add(player);
+        objects.add(treasure);
     }
 
     class GraphicPanel extends JPanel implements ActionListener {
@@ -75,5 +89,6 @@ public class Game extends JFrame {
         public void actionPerformed(ActionEvent e) {
             repaint();
         }
+
     }
 }

@@ -9,8 +9,8 @@ import java.awt.event.KeyEvent;
 public class Player extends GameObject {
 
 
-    public Player(int x, int y, Mediator mediator) {
-        super(x, y, Color.RED, mediator);
+    public Player(Mediator mediator) {
+        super(2, 0, Color.RED, mediator);
     }
 
     @Override
