@@ -23,6 +23,8 @@ public abstract class GameObject {
 
     public abstract boolean isSolid();
 
+    public abstract void reactToPlayer(Player player);
+
     public int getX() {
         return x;
     }

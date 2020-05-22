@@ -40,7 +40,7 @@ public class Game extends JFrame {
     }
 
     public void setUpComponents(){
-        Mediator mediator = new Mediator(objects);
+        Mediator mediator = new Mediator(objects, this);
         Player player = new Player(1, 0, mediator);
         Treasure treasure = new Treasure(0, 0, mediator);
         Wall wall = new Wall(4, 4, mediator);
@@ -51,6 +51,9 @@ public class Game extends JFrame {
         addKeyListener(keyboard);
     }
 
+    public void winGame(){
+        System.exit(0);
+    }
 
     class GraphicPanel extends JPanel implements ActionListener {
         private Timer timer = new Timer(1000/60, this);

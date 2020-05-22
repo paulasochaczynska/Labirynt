@@ -24,6 +24,10 @@ public class Player extends GameObject {
         return true;
     }
 
+    @Override
+    public void reactToPlayer(Player player) {
+    }
+
     public void move(int keyCode) {
         int newX = x;
         int newY = y;
@@ -55,6 +59,8 @@ public class Player extends GameObject {
 
         x = newX;
         y = newY;
+
+        mediator.playerMoved(this);
     }
 
     private int moveRight() {

@@ -19,4 +19,9 @@ public class Treasure extends GameObject{
     public boolean isSolid() {
         return false;
     }
+
+    @Override
+    public void reactToPlayer(Player player) {
+        mediator.winGame();
+    }
 }
