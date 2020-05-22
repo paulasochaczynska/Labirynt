@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.game.Game;
+import org.example.game.Menu;
 
 import javax.swing.*;
 
@@ -9,7 +10,7 @@ public class Launcher {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Game game = new Game();
+                Menu menu = new Menu();
             }
         });
     }
