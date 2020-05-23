@@ -10,7 +10,7 @@ public class Player extends GameObject {
 
 
     public Player(Mediator mediator) {
-        super(2, 0, Color.RED, mediator);
+        super(2, 6, Color.RED, mediator);
     }
 
     @Override

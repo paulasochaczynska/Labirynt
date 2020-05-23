@@ -18,7 +18,7 @@ public class Game extends JFrame {
     private static final int GAME_HEIGHT = 800 + MENU_BAR_HEIGHT;
     private static final int RELATIVE_GAME_HEIGHT = GAME_HEIGHT - MENU_BAR_HEIGHT;
 
-    public static final int FIELD_COUNT = 8;
+    public static final int FIELD_COUNT = 7;
     public static final int FIELD_SIZE = GAME_WIDTH / FIELD_COUNT;
 
     private GraphicPanel panel = new GraphicPanel();
@@ -64,7 +64,7 @@ public class Game extends JFrame {
         WallsGenerator wallsGenerator = new WallsGenerator(mediator);
         List<Wall> walls = wallsGenerator.createWallsForLever(levelNumber);
         objects.addAll(walls);
-        Treasure treasure = new Treasure(0, 0, mediator);
+        Treasure treasure = new Treasure(2, 0, mediator);
         objects.add(player);
         objects.add(treasure);
     }
