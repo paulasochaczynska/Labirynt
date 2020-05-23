@@ -17,6 +17,7 @@ public class WallsGenerator {
         List<Wall> walls = new ArrayList<>();
         addHorizontalWalls(walls);
         addDoors(walls);
+        addSpecialWalls(walls);
         return walls;
     }
 
@@ -37,6 +38,15 @@ public class WallsGenerator {
                     Random random = new Random();
                     walls.remove(new Wall(random.nextInt(Game.FIELD_COUNT), y, mediator));
                 }
+            }
+        }
+    }
+
+    public void addSpecialWalls(List<Wall> walls){
+        for(int y = 0; y < Game.FIELD_COUNT; y++){
+            if (y % 2 == 0){
+                    Random random = new Random();
+                    walls.add(new Wall(random.nextInt(Game.FIELD_COUNT), y, mediator));
             }
         }
     }

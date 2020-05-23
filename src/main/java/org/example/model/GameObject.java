@@ -4,6 +4,7 @@ import org.example.game.Game;
 import org.example.game.Mediator;
 
 import java.awt.*;
+import java.util.Objects;
 
 public abstract class GameObject {
     int x;
@@ -31,5 +32,23 @@ public abstract class GameObject {
 
     public int getY() {
         return y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GameObject object = (GameObject) o;
+        return x == object.x &&
+                y == object.y &&
+                width == object.width &&
+                height == object.height &&
+                Objects.equals(color, object.color) &&
+                Objects.equals(mediator, object.mediator);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y, width, height, color, mediator);
     }
 }

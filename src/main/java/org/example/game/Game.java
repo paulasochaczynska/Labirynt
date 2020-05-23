@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Game extends JFrame {
     private static final int MENU_BAR_HEIGHT = 25;
@@ -23,7 +25,7 @@ public class Game extends JFrame {
 
     private GraphicPanel panel = new GraphicPanel();
     private Keyboard keyboard;
-    private List<GameObject> objects = new ArrayList<>();
+    private List<GameObject> objects = new CopyOnWriteArrayList<>(); //To prevent concurrent modification.
     private Mediator mediator = new Mediator(objects, this);
     private Player player = new Player(mediator);
 
@@ -67,6 +69,12 @@ public class Game extends JFrame {
         Treasure treasure = new Treasure(2, 0, mediator);
         objects.add(player);
         objects.add(treasure);
+    }
+
+    private void putElementInFreeSpace(GameObject element, int y){
+        Random random = new Random();
+        int randomX = random.nextInt(FIELD_COUNT);
+        if ()
     }
 
     class GraphicPanel extends JPanel implements ActionListener {

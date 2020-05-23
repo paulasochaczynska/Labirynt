@@ -24,4 +24,6 @@ public class Wall extends GameObject {
     @Override
     public void reactToPlayer(Player player) {
     }
+
+
 }
