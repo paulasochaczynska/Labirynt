@@ -85,7 +85,18 @@ public class Game extends JFrame {
     }
     public void loseGame(){
         JOptionPane.showMessageDialog(this, "Przegrałeś poziom " + levelNumber);
+        saveScores();
         System.exit(0);
+    }
+
+    public void saveScores(){
+        String name = JOptionPane.showInputDialog("Podaj imię, aby trafić do rankingu");
+        if(name == null || name.isBlank()){
+            return;
+        }
+        RankingData rankingData = new RankingData(player.getAllScores(), name);
+        RankingManager rankingManager = new RankingManager();
+        rankingManager.save(rankingData);
     }
 
     public void showWinMessage(){

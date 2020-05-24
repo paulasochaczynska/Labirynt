@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 public class Menu extends JFrame {
     private JPanel panel = new JPanel(new FlowLayout());
     private JButton startButton = new JButton("Start");
+    private JButton rankingButton = new JButton("Ranking");
     private JButton quitButton = new JButton("Quit");
 
     public Menu() throws HeadlessException {
@@ -26,12 +27,13 @@ public class Menu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Menu");
         add(panel);
-        setSize(200, 80);
+        setSize(250, 150);
         setResizable(false);
     }
 
     public void setUpComponents(){
         panel.add(startButton);
+        panel.add(rankingButton);
         panel.add(quitButton);
     }
 
@@ -47,6 +49,12 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
+            }
+        });
+        rankingButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Ranking ranking = new Ranking();
             }
         });
     }
