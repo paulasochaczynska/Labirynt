@@ -1,9 +1,6 @@
 package org.example.game;
 
-import org.example.model.GameObject;
-import org.example.model.Player;
-import org.example.model.Treasure;
-import org.example.model.Wall;
+import org.example.model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +15,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Game extends JFrame {
     private static final int MENU_BAR_HEIGHT = 25;
-    private static final int GAME_WIDTH = 800;
+    public static final int GAME_WIDTH = 800;
     private static final int GAME_HEIGHT = 800 + MENU_BAR_HEIGHT;
     private static final int RELATIVE_GAME_HEIGHT = GAME_HEIGHT - MENU_BAR_HEIGHT;
 
@@ -30,6 +27,7 @@ public class Game extends JFrame {
     private List<GameObject> objects = new CopyOnWriteArrayList<>(); //To prevent concurrent modification.
     private Mediator mediator = new Mediator(objects, this);
     private Player player = new Player(mediator);
+    private ScoresView scoresView = new ScoresView(player);
     private MusicPlayer musicPlayer;
 
     private int levelNumber = 1;
@@ -85,6 +83,10 @@ public class Game extends JFrame {
         levelNumber++;
         loadLevel(levelNumber);
     }
+    public void loseGame(){
+        JOptionPane.showMessageDialog(this, "Przegrałeś poziom " + levelNumber);
+        System.exit(0);
+    }
 
     public void showWinMessage(){
         JOptionPane.showMessageDialog(this, "Ukończyłeś poziom " + levelNumber);
@@ -98,6 +100,7 @@ public class Game extends JFrame {
         Treasure treasure = new Treasure( mediator);
         putElementInFreeSpace(treasure, 0);
         putElementInFreeSpace(player,FIELD_COUNT -1);
+        setUpLevelPoints(player);
     }
 
     private void putElementInFreeSpace(GameObject element, int y){
@@ -110,6 +113,11 @@ public class Game extends JFrame {
         element.setX(randomX);
         element.setY(y);
         objects.add(element);
+    }
+
+    private void setUpLevelPoints(Player player){
+        player.score();
+        player.setLevelScores(3*FIELD_COUNT);
     }
 
     class GraphicPanel extends JPanel implements ActionListener {
@@ -125,6 +133,7 @@ public class Game extends JFrame {
             for(GameObject object : objects){
                 object.draw(g);
             }
+            scoresView.render(g);
         }
 
         @Override

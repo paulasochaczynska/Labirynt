@@ -42,4 +42,8 @@ public class Mediator {
     public void winGame() {
         game.winGame();
     }
+
+    public void loseGame(){
+        game.loseGame();
+    }
 }

@@ -7,7 +7,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Player extends GameObject {
-
+    private int levelScores;
+    private int allScores;
 
     public Player(Mediator mediator) {
         super(0,0, Color.RED, mediator);
@@ -61,6 +62,14 @@ public class Player extends GameObject {
         y = newY;
 
         mediator.playerMoved(this);
+        updateScore();
+    }
+
+    private void updateScore(){
+        levelScores --;
+        if(levelScores<=0){
+            mediator.loseGame();
+        }
     }
 
     private int moveRight() {
@@ -77,5 +86,21 @@ public class Player extends GameObject {
 
     private int moveDown() {
         return y+1;
+    }
+
+    public void score(){
+        allScores = allScores + levelScores;
+    }
+
+    public int getLevelScores() {
+        return levelScores;
+    }
+
+    public void setLevelScores(int levelScores) {
+        this.levelScores = levelScores;
+    }
+
+    public int getAllScores() {
+        return allScores;
     }
 }
