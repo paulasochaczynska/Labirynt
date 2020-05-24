@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -19,8 +18,8 @@ public class Game extends JFrame {
     private static final int GAME_HEIGHT = 800 + MENU_BAR_HEIGHT;
     private static final int RELATIVE_GAME_HEIGHT = GAME_HEIGHT - MENU_BAR_HEIGHT;
 
-    public static final int FIELD_COUNT = 7;
-    public static final int FIELD_SIZE = GAME_WIDTH / FIELD_COUNT;
+    public static int fieldCount = 7;
+    public static int fieldSize = GAME_WIDTH / fieldCount;
 
     private GraphicPanel panel = new GraphicPanel();
     private Keyboard keyboard;
@@ -78,13 +77,46 @@ public class Game extends JFrame {
         addKeyListener(keyboard);
     }
 
-    public void winGame(){
+    public void winLevel(){
         showWinMessage();
+        checkLastLvl();
         levelNumber++;
+        updateFieldCount();
         loadLevel(levelNumber);
     }
+
+    private void checkLastLvl(){
+        if(levelNumber == 15){
+            winGame();
+        }
+    }
+
+
+    private void updateFieldCount(){
+        if(levelNumber == 5){
+            fieldCount = 9;
+            updateFieldSize();
+        }
+        if(levelNumber == 10){
+            fieldCount = 13;
+            updateFieldSize();
+        }
+    }
+
+    private void updateFieldSize() {
+        fieldSize = GAME_WIDTH/fieldCount;
+        player.setWidth(fieldSize);
+        player.setHeight(fieldSize);
+    }
+
     public void loseGame(){
         JOptionPane.showMessageDialog(this, "Przegrałeś poziom " + levelNumber);
+        saveScores();
+        System.exit(0);
+    }
+
+    public void winGame(){
+        JOptionPane.showMessageDialog(this, "Wygrałeś grę! ");
         saveScores();
         System.exit(0);
     }
@@ -108,15 +140,17 @@ public class Game extends JFrame {
         WallsGenerator wallsGenerator = new WallsGenerator(mediator);
         List<Wall> walls = wallsGenerator.createWallsForLever(levelNumber);
         objects.addAll(walls);
+        GhostGenerator ghostGenerator = new GhostGenerator(mediator, levelNumber);
+        objects.addAll(ghostGenerator.generateGhosts());
         Treasure treasure = new Treasure( mediator);
         putElementInFreeSpace(treasure, 0);
-        putElementInFreeSpace(player,FIELD_COUNT -1);
+        putElementInFreeSpace(player, fieldCount -1);
         setUpLevelPoints(player);
     }
 
     private void putElementInFreeSpace(GameObject element, int y){
         Random random = new Random();
-        int randomX = random.nextInt(FIELD_COUNT);
+        int randomX = random.nextInt(fieldCount);
         if (mediator.findGameObjectByCords(randomX,y) != null) {
             putElementInFreeSpace(element, y);
             return;
@@ -128,7 +162,7 @@ public class Game extends JFrame {
 
     private void setUpLevelPoints(Player player){
         player.score();
-        player.setLevelScores(3*FIELD_COUNT);
+        player.setLevelScores(4* fieldCount);
     }
 
     class GraphicPanel extends JPanel implements ActionListener {

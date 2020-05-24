@@ -26,7 +26,12 @@ public class Player extends GameObject {
     }
 
     @Override
-    public void reactToPlayer(Player player) {
+    public void reactToPlayerCollision(Player player) {
+    }
+
+    @Override
+    public void reactToPlayerMoved() {
+
     }
 
     public void action(int keyCode){
@@ -40,6 +45,7 @@ public class Player extends GameObject {
     private void detonateBomb(){
         updateScore(4);
         mediator.detonateBomb(x, y);
+        mediator.reactBeforePlayerAct();
     }
 
     private void move(int keyCode) {
@@ -59,23 +65,23 @@ public class Player extends GameObject {
             newY = moveDown();
         }
 
-        if(newX < 0 || newX > Game.FIELD_COUNT - 1){
+        if(newX < 0 || newX > Game.fieldCount - 1){
             return;
         }
 
-        if(newY < 0 || newY > Game.FIELD_COUNT - 1){
+        if(newY < 0 || newY > Game.fieldCount - 1){
             return;
         }
 
         if(!mediator.canMoveTo(newX, newY)){
                return;
         }
-
+        mediator.reactBeforePlayerAct();
         x = newX;
         y = newY;
-
-        mediator.playerMoved(this);
+        mediator.reactToPlayerCollision(this);
         updateScore(1);
+
     }
 
     private void updateScore(int amount){

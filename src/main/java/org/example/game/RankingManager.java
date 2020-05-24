@@ -41,7 +41,7 @@ public class RankingManager {
             ranking = (List<RankingData>) ois.readObject();
             ois.close();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Brak pliku");
         }
     }
 

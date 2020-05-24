@@ -21,7 +21,12 @@ public class Treasure extends GameObject{
     }
 
     @Override
-    public void reactToPlayer(Player player) {
+    public void reactToPlayerCollision(Player player) {
         mediator.winGame();
+    }
+
+    @Override
+    public void reactToPlayerMoved() {
+
     }
 }

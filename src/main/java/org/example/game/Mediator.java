@@ -24,10 +24,10 @@ public class Mediator {
         return true;
     }
 
-    public void playerMoved(Player player) {
+    public void reactToPlayerCollision(Player player) {
         GameObject found = findGameObjectByCords(player.getX(), player.getY());
         if (found != null) {
-            found.reactToPlayer(player);
+            found.reactToPlayerCollision(player);
         }
     }
 
@@ -41,7 +41,7 @@ public class Mediator {
     }
 
     public void winGame() {
-        game.winGame();
+        game.winLevel();
     }
 
     public void loseGame() {
@@ -56,10 +56,10 @@ public class Mediator {
     }
 
     public void clearField(int x, int y) {
-        if (x < 0 || x >= Game.FIELD_COUNT) {
+        if (x < 0 || x >= Game.fieldCount) {
             return;
         }
-        if (y < 0 || y >= Game.FIELD_COUNT) {
+        if (y < 0 || y >= Game.fieldCount) {
             return;
         }
         List<GameObject> toRemove = new ArrayList<>();
@@ -69,5 +69,11 @@ public class Mediator {
             }
         }
         objects.removeAll(toRemove);
+    }
+
+    public void reactBeforePlayerAct(){
+        for (GameObject object : objects) {
+            object.reactToPlayerMoved();
+        }
     }
 }

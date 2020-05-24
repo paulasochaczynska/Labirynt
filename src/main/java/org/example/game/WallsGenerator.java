@@ -22,9 +22,9 @@ public class WallsGenerator {
     }
 
     public void addHorizontalWalls(List<Wall> walls) {
-        for (int y = 0; y < Game.FIELD_COUNT; y++) {
+        for (int y = 0; y < Game.fieldCount; y++) {
             if (y % 2 == 1) {
-                for (int x = 0; x < Game.FIELD_COUNT; x++) {
+                for (int x = 0; x < Game.fieldCount; x++) {
                     walls.add(new Wall(x, y, mediator));
                 }
             }
@@ -32,21 +32,21 @@ public class WallsGenerator {
     }
 
     public void addDoors(List<Wall> walls) {
-        for (int y = 0; y < Game.FIELD_COUNT; y++) {
+        for (int y = 0; y < Game.fieldCount; y++) {
             if (y % 2 == 1) {
                 for (int i = 0; i < 2; i++) {
                     Random random = new Random();
-                    walls.remove(new Wall(random.nextInt(Game.FIELD_COUNT), y, mediator));
+                    walls.remove(new Wall(random.nextInt(Game.fieldCount), y, mediator));
                 }
             }
         }
     }
 
     public void addSpecialWalls(List<Wall> walls) {
-        for (int y = 0; y < Game.FIELD_COUNT; y++) {
+        for (int y = 0; y < Game.fieldCount; y++) {
             if (y % 2 == 0) {
                 Random random = new Random();
-                walls.add(new Wall(random.nextInt(Game.FIELD_COUNT), y, mediator));
+                walls.add(new Wall(random.nextInt(Game.fieldCount), y, mediator));
             }
         }
     }

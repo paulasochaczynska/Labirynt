@@ -9,8 +9,8 @@ import java.util.Objects;
 public abstract class GameObject {
     int x;
     int y;
-    int width = Game.FIELD_SIZE;
-    int height = Game.FIELD_SIZE;
+    int width = Game.fieldSize;
+    int height = Game.fieldSize;
     Color color;
     Mediator mediator;
 
@@ -24,7 +24,9 @@ public abstract class GameObject {
 
     public abstract boolean isSolid();
 
-    public abstract void reactToPlayer(Player player);
+    public abstract void reactToPlayerCollision(Player player);
+
+    public abstract void reactToPlayerMoved();
 
     public int getX() {
         return x;
@@ -58,5 +60,13 @@ public abstract class GameObject {
     @Override
     public int hashCode() {
         return Objects.hash(x, y, width, height, color, mediator);
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

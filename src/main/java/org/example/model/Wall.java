@@ -22,7 +22,12 @@ public class Wall extends GameObject {
     }
 
     @Override
-    public void reactToPlayer(Player player) {
+    public void reactToPlayerCollision(Player player) {
+    }
+
+    @Override
+    public void reactToPlayerMoved() {
+
     }
 
 
