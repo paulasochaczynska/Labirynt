@@ -14,9 +14,8 @@ public class Keyboard implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        player.move(e.getKeyCode());
+        player.action(e.getKeyCode());
     }
-
 
 
 

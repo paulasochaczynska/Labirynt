@@ -3,6 +3,7 @@ package org.example.game;
 import org.example.model.GameObject;
 import org.example.model.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Mediator {
@@ -43,7 +44,30 @@ public class Mediator {
         game.winGame();
     }
 
-    public void loseGame(){
+    public void loseGame() {
         game.loseGame();
+    }
+
+    public void detonateBomb(int x, int y) {
+        clearField(x - 1, y);
+        clearField(x, y - 1);
+        clearField(x + 1, y);
+        clearField(x, y + 1);
+    }
+
+    public void clearField(int x, int y) {
+        if (x < 0 || x >= Game.FIELD_COUNT) {
+            return;
+        }
+        if (y < 0 || y >= Game.FIELD_COUNT) {
+            return;
+        }
+        List<GameObject> toRemove = new ArrayList<>();
+        for(GameObject object : objects){
+            if (object.getX() == x && object.getY() == y){
+                toRemove.add(object);
+            }
+        }
+        objects.removeAll(toRemove);
     }
 }

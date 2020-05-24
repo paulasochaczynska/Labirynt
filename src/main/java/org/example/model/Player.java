@@ -29,7 +29,20 @@ public class Player extends GameObject {
     public void reactToPlayer(Player player) {
     }
 
-    public void move(int keyCode) {
+    public void action(int keyCode){
+        if(KeyEvent.VK_SPACE == keyCode){
+            detonateBomb();
+        }else{
+            move(keyCode);
+        }
+    }
+
+    private void detonateBomb(){
+        updateScore(4);
+        mediator.detonateBomb(x, y);
+    }
+
+    private void move(int keyCode) {
         int newX = x;
         int newY = y;
 
@@ -62,12 +75,13 @@ public class Player extends GameObject {
         y = newY;
 
         mediator.playerMoved(this);
-        updateScore();
+        updateScore(1);
     }
 
-    private void updateScore(){
-        levelScores --;
+    private void updateScore(int amount){
+        levelScores -= amount;
         if(levelScores<=0){
+            levelScores = 0;
             mediator.loseGame();
         }
     }
