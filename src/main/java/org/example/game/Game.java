@@ -116,6 +116,7 @@ public class Game extends JFrame {
     }
 
     public void winGame(){
+        player.score();
         JOptionPane.showMessageDialog(this, "Wygrałeś grę! ");
         saveScores();
         System.exit(0);

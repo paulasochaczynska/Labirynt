@@ -4,6 +4,7 @@ import org.example.game.Game;
 import org.example.game.Mediator;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Ghost extends GameObject {
 
@@ -11,7 +12,8 @@ public class Ghost extends GameObject {
 
     public Ghost(int x, int y, Mediator mediator) {
         super(x, y, Color.GRAY.brighter(), mediator);
-
+        Random random = new Random();
+        movingUp = random.nextBoolean();
     }
 
     @Override
